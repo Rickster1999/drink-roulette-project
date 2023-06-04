@@ -6,6 +6,12 @@ var startBtn = document.getElementById('startBtn');
 var mealAns = document.getElementById('meal-response')
 var mealContainerEl = document.getElementById('meal-response')
 var imageMealEl = document.createElement('img')
+var containerEl = document.getElementById('image-container');
+var imageEl = document.createElement('img');
+var answerEl = document.getElementById('response');
+
+//Background Image
+document.body.style.backgroundImage = 'url(./assets/image/white-waves.png)'
 
 // Function to fetch the meal api and automatically fill it into the selection menu.
 function mealSelector() {
@@ -55,12 +61,8 @@ startBtn.addEventListener('click', function(event) {
 });
 
 
-// Carousel logic
-var containerEl = document.getElementById('image-container');
-var imageEl = document.createElement('img');
-var answerEl = document.getElementById('response');
 
-
+//Both functions are called in the HTML page
 function drinkSelectorNonAlc() {
     fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic')
         .then (response => {
@@ -70,11 +72,11 @@ function drinkSelectorNonAlc() {
         .then(data => {
             var randomIndex = Math.floor(Math.random() * data.drinks.length);
             var randomAnswer = data.drinks[randomIndex].strDrink;
-            answerEl.textContent = 'Drink of Choice is: ' + randomAnswer;
+            answerEl.textContent = 'Random drink is: ' + randomAnswer;
 
             var randomImage = data.drinks[randomIndex].strDrinkThumb;
             imageEl.src = randomImage;
-            imageEl.setAttribute('style', 'width:100%')
+            imageEl.setAttribute('style', 'width:100%',)
             containerEl.appendChild(imageEl);
         });
     };
@@ -90,6 +92,7 @@ function drinkSelectorAlc() {
             
             var randomImageAlc = data.drinks[randomIndexAlc].strDrinkThumb;
             imageEl.src = randomImageAlc;
+            imageEl.setAttribute('style', 'width:100%')
             containerEl.appendChild(imageEl);
         }); 
     };
