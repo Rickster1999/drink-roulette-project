@@ -3,6 +3,9 @@ var mealSelect = document.getElementById('meal-select');
 var nonAlcholic = document.getElementById('non-alcholic-select');
 var Alcholic = document.getElementById('alcholic-select');
 var startBtn = document.getElementById('startBtn');
+var mealAns = document.getElementById('meal-response')
+var mealContainerEl = document.getElementById('meal-response')
+var imageMealEl = document.createElement('img')
 
 // Function to fetch the meal api and automatically fill it into the selection menu.
 function mealSelector() {
@@ -33,6 +36,14 @@ function mealSelector() {
     })
     .then(data => {
         console.log(data);
+        var randomMeal = Math.floor(Math.random() * data.meals.length);
+        var randomMealAns = data.meals[randomMeal].strMeal;
+        mealAns.textContent = 'Random Meal is: ' + randomMealAns;
+
+        var randomMealImg = data.meals[randomMeal].strMealThumb;
+        imageMealEl.src = randomMealImg;
+        imageMealEl.setAttribute('style', 'width:100%')
+        mealContainerEl.appendChild(imageMealEl);
     })
 };
     
@@ -42,48 +53,43 @@ startBtn.addEventListener('click', function(event) {
     event.preventDefault();
     mealRandom();
 });
-=======
+
 
 // Carousel logic
-var mealSelect = document.getElementById('meal-select');
-var drinkSelect = document.getElementById('drink-select');
-function mealSelector() {
-    fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
-        .then (response => {
-            return response.json();
-        })
-        .then(data => {
-            data.forEach(meal => {
-            var option = document.createElement('option');
-            option.value = meal.id;
-            mealSelect.appendChild(option);
-        });
-    });
-}
-function drinkSelectorNon() {
-    fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink')
+var containerEl = document.getElementById('image-container');
+var imageEl = document.createElement('img');
+var answerEl = document.getElementById('response');
+
+
+function drinkSelectorNonAlc() {
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic')
         .then (response => {
             return response.json();
         })
         // trying to get the options to show up on the dropdown menu
         .then(data => {
-            data.forEach(drink => {
-            var option = document.createElement('option');
-            option.value = drink.id;
-            drinkSelect.appendChild(option);
+            var randomIndex = Math.floor(Math.random() * data.drinks.length);
+            var randomAnswer = data.drinks[randomIndex].strDrink;
+            answerEl.textContent = 'Drink of Choice is: ' + randomAnswer;
+
+            var randomImage = data.drinks[randomIndex].strDrinkThumb;
+            imageEl.src = randomImage;
+            imageEl.setAttribute('style', 'width:100%')
+            containerEl.appendChild(imageEl);
         });
-    });
-}
-function drinkSelectorAlc () {
-    fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail')
+    };
+function drinkSelectorAlc() {
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic')
         .then (response => {
             return response.json();
         })
         .then(data => {
-            data.forEach(meal => {
-            var option = document.createElement('option');
-            option.value = drink.id;
-            drinkSelect.appendChild(option);
-        });
-    });  
-}
+            var randomIndexAlc = Math.floor(Math.random() * data.drinks.length);
+            var randomAnswerAlc = data.drinks[randomIndexAlc].strDrink;
+            answerEl.textContent = 'Drink of Choice is: ' + randomAnswerAlc;
+            
+            var randomImageAlc = data.drinks[randomIndexAlc].strDrinkThumb;
+            imageEl.src = randomImageAlc;
+            containerEl.appendChild(imageEl);
+        }); 
+    };
