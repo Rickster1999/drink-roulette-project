@@ -50,6 +50,10 @@ function mealSelector() {
         imageMealEl.src = randomMealImg;
         imageMealEl.setAttribute('style', 'width:100%')
         mealContainerEl.appendChild(imageMealEl);
+
+        window.localStorage.setItem(randomMealAns, mealAns.textContent + imageMealEl.src)
+        var dataSet = window.localStorage.getItem(randomMealAns);
+        console.log(dataSet);
     })
 };
     
@@ -71,6 +75,7 @@ function drinkSelectorNonAlc() {
         // trying to get the options to show up on the dropdown menu
         .then(data => {
             var randomIndex = Math.floor(Math.random() * data.drinks.length);
+            // This randomAnswer left in here to show which function it belongs to!
             var randomAnswer = data.drinks[randomIndex].strDrink;
             answerEl.textContent = 'Random drink is: ' + randomAnswer;
 
@@ -78,6 +83,10 @@ function drinkSelectorNonAlc() {
             imageEl.src = randomImage;
             imageEl.setAttribute('style', 'width:100%',)
             containerEl.appendChild(imageEl);
+
+            window.localStorage.setItem(randomAnswer, answerEl.textContent + imageEl.src)
+            var dataSet = window.localStorage.getItem(randomAnswer);
+            console.log(dataSet);
         });
     };
 function drinkSelectorAlc() {
@@ -94,5 +103,9 @@ function drinkSelectorAlc() {
             imageEl.src = randomImageAlc;
             imageEl.setAttribute('style', 'width:100%')
             containerEl.appendChild(imageEl);
+
+            window.localStorage.setItem(randomAnswerAlc, answerEl.textContent + imageEl.src)
+            var dataSet = window.localStorage.getItem(randomAnswerAlc);
+            console.log(dataSet);
         }); 
     };
