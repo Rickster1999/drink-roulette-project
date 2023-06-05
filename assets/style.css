@@ -1,8 +1,54 @@
 header {
-    font-size: 80px;
-   align-items: center;
+   display: flex;
+   width: 100%;
+   height: 100px;
+   margin: auto;
+   background-color: #4aaaa5;
+   flex-direction: row;
+   text-align: center;
+   font-size: 80px;
+
 }
 button {
    font-size: xx-large;
 }
 
+li {
+   display: flex;
+   width: 100%;
+   height: 40px;
+   margin-left: 450px; 
+   margin-right: 500px;
+   font-size: large;
+}
+ 
+p {
+   font-size: 30px;
+   display: block;
+   width: 50%;
+   margin-left: 675px;
+   margin-right: 500px;
+   padding-top: 25px;
+   padding-bottom: 20px;
+}
+
+.a-button {
+   display: flex;
+width: 200px;
+margin-left: 700px;
+border: 2px solid black;
+color: black;
+border-radius: 15px;
+background-color: #4aaaa5;
+justify-content: center;
+}
+
+form {
+   display: flex;
+   margin-left: 665px;
+}
+
+section {
+   display: flex;
+   margin-left: 350px;
+}
