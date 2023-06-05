@@ -9,6 +9,7 @@ var imageMealEl = document.createElement('img')
 var containerEl = document.getElementById('image-container');
 var imageEl = document.createElement('img');
 var answerEl = document.getElementById('response');
+var searchedItems = document.getElementById('search-history')
 
 //Background Image
 document.body.style.backgroundImage = 'url(./assets/image/white-waves.png)'
@@ -50,10 +51,10 @@ function mealSelector() {
         imageMealEl.src = randomMealImg;
         imageMealEl.setAttribute('style', 'width:100%')
         mealContainerEl.appendChild(imageMealEl);
-
-        window.localStorage.setItem(randomMealAns, mealAns.textContent + imageMealEl.src)
-        var dataSet = window.localStorage.getItem(randomMealAns);
-        console.log(dataSet);
+        // localStorage
+        var collection = JSON.parse(localStorage.getItem('searched')) || [];
+        collection.push(randomMealAns);
+        window.localStorage.setItem('searched', JSON.stringify(collection));
     })
 };
     
@@ -83,10 +84,10 @@ function drinkSelectorNonAlc() {
             imageEl.src = randomImage;
             imageEl.setAttribute('style', 'width:100%',)
             containerEl.appendChild(imageEl);
-
-            window.localStorage.setItem(randomAnswer, answerEl.textContent + imageEl.src)
-            var dataSet = window.localStorage.getItem(randomAnswer);
-            console.log(dataSet);
+            // localStorage
+            var collection = JSON.parse(localStorage.getItem('searched')) || [];
+            collection.push(randomAnswer);
+            window.localStorage.setItem('searched', JSON.stringify(collection));
         });
     };
 function drinkSelectorAlc() {
@@ -103,9 +104,22 @@ function drinkSelectorAlc() {
             imageEl.src = randomImageAlc;
             imageEl.setAttribute('style', 'width:100%')
             containerEl.appendChild(imageEl);
-
-            window.localStorage.setItem(randomAnswerAlc, answerEl.textContent + imageEl.src)
-            var dataSet = window.localStorage.getItem(randomAnswerAlc);
-            console.log(dataSet);
+            // localStorage
+            var collection = JSON.parse(localStorage.getItem('searched')) || [];
+            collection.push(randomAnswerAlc);
+            window.localStorage.setItem('searched', JSON.stringify(collection));
         }); 
     };
+
+
+    // setting up the localstorage to get the data to persist 
+    var collection = JSON.parse(localStorage.getItem('searched')) || [];
+
+    collection.forEach(function(item) {
+        console.log(item);
+        var aEl = document.createElement('a');
+        aEl.textContent = item;
+        aEl.className = 'w3-margin-right';
+        aEl.href = '#' + item;
+        searchedItems.appendChild(aEl);
+    })
