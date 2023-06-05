@@ -9,6 +9,7 @@ var imageMealEl = document.createElement('img')
 var containerEl = document.getElementById('image-container');
 var imageEl = document.createElement('img');
 var answerEl = document.getElementById('response');
+var searchedItems = document.getElementById('search-history')
 
 //Background Image
 document.body.style.backgroundImage = 'url(./assets/image/white-waves.png)'
@@ -50,6 +51,10 @@ function mealSelector() {
         imageMealEl.src = randomMealImg;
         imageMealEl.setAttribute('style', 'width:100%')
         mealContainerEl.appendChild(imageMealEl);
+        // localStorage
+        var collection = JSON.parse(localStorage.getItem('searched')) || [];
+        collection.push(randomMealAns);
+        window.localStorage.setItem('searched', JSON.stringify(collection));
     })
 };
     
@@ -71,6 +76,7 @@ function drinkSelectorNonAlc() {
         // trying to get the options to show up on the dropdown menu
         .then(data => {
             var randomIndex = Math.floor(Math.random() * data.drinks.length);
+            // This randomAnswer left in here to show which function it belongs to!
             var randomAnswer = data.drinks[randomIndex].strDrink;
             answerEl.textContent = 'Random drink is: ' + randomAnswer;
 
@@ -78,6 +84,10 @@ function drinkSelectorNonAlc() {
             imageEl.src = randomImage;
             imageEl.setAttribute('style', 'width:100%',)
             containerEl.appendChild(imageEl);
+            // localStorage
+            var collection = JSON.parse(localStorage.getItem('searched')) || [];
+            collection.push(randomAnswer);
+            window.localStorage.setItem('searched', JSON.stringify(collection));
         });
     };
 function drinkSelectorAlc() {
@@ -94,5 +104,22 @@ function drinkSelectorAlc() {
             imageEl.src = randomImageAlc;
             imageEl.setAttribute('style', 'width:100%')
             containerEl.appendChild(imageEl);
+            // localStorage
+            var collection = JSON.parse(localStorage.getItem('searched')) || [];
+            collection.push(randomAnswerAlc);
+            window.localStorage.setItem('searched', JSON.stringify(collection));
         }); 
     };
+
+
+    // setting up the localstorage to get the data to persist 
+    var collection = JSON.parse(localStorage.getItem('searched')) || [];
+
+    collection.forEach(function(item) {
+        console.log(item);
+        var aEl = document.createElement('a');
+        aEl.textContent = item;
+        aEl.className = 'w3-margin-right';
+        aEl.href = '#' + item;
+        searchedItems.appendChild(aEl);
+    })
